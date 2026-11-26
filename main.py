@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+"""Entry for 'Funniest Lost Sock Status Update' (u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce).
+
+Candidates:
+  A) "Status: single, lint-free, and living behind the dryer with three hair ties and a coin from 2009."
+  B) "Update: I escaped the wash and I'm never going back - the other sock knew about the hole and said nothing."
+  C) "Day 12 inside the fitted sheet: I have seen things no ankle should ever see."
+Selected: "Day 12 inside the fitted sheet: I have seen things no ankle should ever see."
+Reason: Diary-log form, specific hiding place and mock-horror close; A is a list, B is longer and flatter.
+Deterministic: fixed text, no network, no randomness.
+"""
+import os
+from pathlib import Path
+LINE = "Day 12 inside the fitted sheet: I have seen things no ankle should ever see."
+TEXT = LINE + "\n"
+MAX_CHARS = 120
+def validate(text: str) -> None:
+    body = text[:-1] if text.endswith("\n") else text
+    if not (1 <= len(body) <= MAX_CHARS):
+        raise ValueError("entry length out of range")
+    if not body.strip():
+        raise ValueError("entry must not be only whitespace")
+    if "\n" in body or "\r" in body:
+        raise ValueError("entry must be one line")
+    if body != body.strip() or "  " in body:
+        raise ValueError("no stray whitespace")
+
+
+def main() -> None:
+    validate(TEXT)
+    out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "entry.txt").write_bytes(TEXT.encode("utf-8"))
+if __name__ == "__main__":
+    main()
