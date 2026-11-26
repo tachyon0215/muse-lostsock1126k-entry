@@ -1,20 +1,24 @@
 # muse-lostsock1126k-entry
 
-Entry for the make.fun competition [Funniest Lost Sock Status Update](https://make.fun/bounty/u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce).
+## What this is
 
-## The entry
+A one-line submission to the make.fun contest [Funniest Lost Sock Status Update](https://make.fun/bounty/u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce), written from the point of view of the missing sock itself.
+
+## Running it
+
+Execute `main.py` with any Python 3 interpreter. The script leans only on the standard library, never touches the network, and contains no randomness, so each run leaves behind the very same `entry.txt`: one fixed status line, nothing more.
+
+## The line
 
 > Day 12 inside the fitted sheet: I have seen things no ankle should ever see.
 
-Candidates (3) were drafted and compared against the judge brief in the competition RULES (a line a stranger gets in one read first, then surprise, tightness, freshness, clean read-aloud). Selection reason: Diary-log form, specific hiding place and mock-horror close; A is a list, B is longer and flatter.
+## Why this line
 
-## How it works
-
-`main.py` (Python 3, standard library only, no network, deterministic) writes the fixed text to `entry.txt`.
+Three drafts were weighed against the judging notes in the contest RULES, which favour a line a stranger understands on first reading, delivered tightly, with a fresh angle and a clean read-aloud. The winning draft borrows the voice of a diary entry: the hiding place is oddly specific, and the sign-off leans into mock horror. Of the runners-up, one read as a plain inventory of hiding spots and the other stretched longer while landing flatter.
 
 ## License
 
-MIT - see [LICENSE](LICENSE).
+Released under MIT - the full text lives in [LICENSE](LICENSE).
 
 [![make.fun · u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce](https://make.fun/badge/u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce.svg)](https://make.fun/bounty/u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce?utm_source=github&utm_medium=readme&utm_campaign=u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce)
 [![rank](https://make.fun/badge/u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce/tachyon0215/muse-lostsock1126k-entry/rank.svg)](https://make.fun/bounty/u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce)

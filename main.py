@@ -1,48 +1,62 @@
 #!/usr/bin/env python3
-"""make.fun entry: 'Funniest Lost Sock Status Update'.
+"""Field notes from a sock that never came back from the laundry.
 
-Competition: u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce
+This module is the entry for the make.fun contest 'Funniest Lost Sock
+Status Update' (slug
+u-eager-stork-81-9647-funniest-lost-sock-status-update-4b1fa3ce).
 
-Three candidate lines were drafted for this one:
-  A) "Status: single, lint-free, and living behind the dryer with three hair ties and a coin from 2009."
-  B) "Update: I escaped the wash and I'm never going back - the other sock knew about the hole and said nothing."
-  C) "Day 12 inside the fitted sheet: I have seen things no ankle should ever see."
-Line C won: it reads like a diary log from a very specific hiding place and
-closes on mock horror, while A is just a list and B runs longer and flatter.
-
-The program is fully deterministic: it emits one fixed string, touches no
-network, and uses no randomness or clocks.
+Rather than inventing a whole saga, the entry keeps things to a single
+dispatch: a diary-style status line written by a sock that has spent
+twelve days wedged inside a fitted sheet and has come out the other
+side slightly traumatised. Running the module drops that line, exactly
+as written, into a file called entry.txt inside whichever directory
+the MAKEFUN_OUTPUT_DIR environment variable points at (falling back
+to /output). Nothing here is random, timed, or fetched from anywhere;
+every run produces the identical file.
 """
 
 import os
 from pathlib import Path
 
-# The single status line this entry submits, newline included.
-TEXT = "Day 12 inside the fitted sheet: I have seen things no ankle should ever see.\n"
+# The dispatch itself, kept with its trailing newline already attached
+# so the bytes written to disk need no further massaging.
+DISPATCH = (
+    "Day 12 inside the fitted sheet: "
+    "I have seen things no ankle should ever see.\n"
+)
 
-# The brief caps the line at 120 characters (newline excluded).
-MAX_CHARS = 120
-
-
-def validate(text: str) -> None:
-    """Check the output: exactly one clean line, within the character cap."""
-    body = text[:-1] if text.endswith("\n") else text
-    if not 1 <= len(body) <= MAX_CHARS:
-        raise ValueError("entry length out of range")
-    if not body.strip():
-        raise ValueError("entry must not be only whitespace")
-    if "\n" in body or "\r" in body:
-        raise ValueError("entry must be one line")
-    if body != body.strip() or "  " in body:
-        raise ValueError("no stray whitespace")
+# Contest rules allow at most 120 characters for the line, not
+# counting the final newline.
+LINE_LIMIT = 120
 
 
-def main() -> None:
-    validate(TEXT)
-    out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "entry.txt").write_bytes(TEXT.encode("utf-8"))
+def check_dispatch(line: str) -> None:
+    """Raise ValueError unless *line* is one tidy line within the cap.
+
+    The checks, in order: the visible part of the line must be neither
+    empty nor longer than LINE_LIMIT; it cannot be blank space alone;
+    it may not smuggle in extra line breaks; and it must be free of
+    padding or doubled spaces.
+    """
+    visible = line[:-1] if line.endswith("\n") else line
+    if not 1 <= len(visible) <= LINE_LIMIT:
+        raise ValueError("dispatch length falls outside the allowed range")
+    if not visible.strip():
+        raise ValueError("dispatch cannot be whitespace only")
+    if "\n" in visible or "\r" in visible:
+        raise ValueError("dispatch has to stay on a single line")
+    if visible != visible.strip() or "  " in visible:
+        raise ValueError("dispatch carries stray whitespace")
+
+
+def emit() -> None:
+    """Validate the dispatch, then write it to entry.txt."""
+    check_dispatch(DISPATCH)
+    target_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output")
+    target_dir.mkdir(parents=True, exist_ok=True)
+    payload = DISPATCH.encode("utf-8")
+    (target_dir / "entry.txt").write_bytes(payload)
 
 
 if __name__ == "__main__":
-    main()
+    emit()
