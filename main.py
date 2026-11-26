@@ -25,7 +25,7 @@ MAX_CHARS = 120
 
 
 def validate(text: str) -> None:
-    """Guard the output: it must be exactly one clean line within the cap."""
+    """Check the output: exactly one clean line, within the character cap."""
     body = text[:-1] if text.endswith("\n") else text
     if not 1 <= len(body) <= MAX_CHARS:
         raise ValueError("entry length out of range")
